@@ -317,6 +317,101 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simpleslider.min.js"></script>
     <script>
         
+async function displayWord(getWord, searchItem) {
+
+          // word header
+          const wordPart = document.getElementById("wordTitle");
+          // part of speech header
+          const posPart = document.getElementById("partsofspeech");
+          // definition
+          const definitionPart = document.getElementById("definitions");
+          definitionPart.innerHTML = "";
+
+          let PoSarr = [];
+
+          const plaintext = searchItem;
+          console.log(plaintext);
+          const formattedText = plaintext.charAt(0).toUpperCase() + plaintext.slice(1);
+
+          wordPart.innerHTML = formattedText;
+
+          if (getWord.title=="No Definitions Found"){
+            console.log('No word data found');
+          
+            document.getElementById('partsofspeech').innerHTML="";
+            definitionPart.innerHTML = "No definition found. Try another search!";
+            
+            return false;
+          }
+            
+            console.log(plaintext);
+            let insertWord = '/insertWord/' + plaintext;
+            
+            let queriedWord = '/WordSearch/' + plaintext;
+
+            //let updateWord = '/updateWord/' + word + '/3';
+            
+            //await fetch(updateWord)
+            //await fetch(insertWord);
+
+            const wordsDbFind = await fetch(queriedWord).then((res) => res.json());
+            
+            if(wordsDbFind.length == 0){
+                await fetch(insertWord);
+                console.log('2');
+            }
+            else{
+                let newNumber = wordsDbFind[0].Count +1;
+                
+                let updateWord = '/updateWord/' + plaintext + '/' + newNumber;
+                await fetch(updateWord);
+                console.log("3")
+            }
+
+          for (let i = 0; i < getWord[0].meanings.length; i++) {
+            PoSarr.push(getWord[0].meanings[i].partOfSpeech + "");
+
+            const PoS = document.createElement("h3");
+            const PoSnode = document.createTextNode(getWord[0].meanings[i].partOfSpeech);
+            const formattedPOS = document.createTextNode(PoSnode.textContent.charAt(0).toUpperCase() + PoSnode.textContent.slice(1));
+            PoS.appendChild(formattedPOS);
+
+            const def = document.createElement("p");
+            const defNode = document.createTextNode(getWord[0].meanings[i].definitions[0].definition);
+            def.appendChild(defNode);
+
+            definitionPart.appendChild(PoS);
+            definitionPart.appendChild(def);
+
+            if ((getWord[0].meanings[i].definitions[0].example + "") !== "undefined") {
+              const ex = document.createElement('h3');
+              ex.innerText = "Example: ";
+              ex.style.fontStyle = 'italic';
+
+              
+              const sentenceUse = document.createElement("p");
+              const sentenceUseNode = document.createTextNode(getWord[0].meanings[i].definitions[0].example);
+
+              sentenceUse.append(ex);
+              sentenceUse.appendChild(sentenceUseNode);
+              definitionPart.appendChild(sentenceUse);
+            }
+          }
+          posPart.innerHTML = "(" + PoSarr + ")";
+
+          localStorage.setItem('wordData', "");
+          localStorage.setItem('searchItem', "");
+        }
+        window.onload = async function() {
+          let getWord = JSON.parse(localStorage.getItem('wordData'));
+          let searchItem = localStorage.getItem('searchItem');
+          console.log(getWord);
+          
+        //   getRandomWord();
+
+          displayWord(getWord, searchItem);
+        }
+
         function redirect(address){
             let buffer = "http://localhost:3000/"+address
             //alert(buffer)
