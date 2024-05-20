@@ -37,7 +37,7 @@ From here, the two dependencies that need to be installed are 1. Express,  2. EJ
 
 These can both be installed through the terminal in any IDE that is being used with the following command: 
 
-From here, all that needs to be done is to open up the integrated terminal on the server.js file and the project is being run on a local server. All edits can be seen by placing this in the URL: http://localhost:3000/
+From here, all that needs to be done is to open up the integrated terminal on the server.js file and the project is being run on a local server. All edits can be seen by placing the Vercel URL shown on the right of the Github.
 
 ## APIs and Libraries
 There are a few endpoints that are used. The first one comes from the Dictionary API (https://dictionaryapi.dev/). This is the API that we use to fetch a given searched word. The endpoint for the API is below. 
@@ -48,7 +48,9 @@ The next API used is a Random Word API (https://random-word-api.herokuapp.com/ho
 
 Random Word API endpoint: https://random-word-api.herokuapp.com/word?lang=en&number=10 
 
-The last Backend database that is being fetched is a Python database that is in the repository. This database is used to collect the scores of the games that have been played. We post the scores from the site to the database, and then we later fetch the scores to display on the site. The database is under the file db-interface.py.
+There were two backend databases that were created. The first Backend database that is being fetched is a Python database that is in the repository. This database is used to collect the scores of the games that have been played. We post the scores from the site to the database, and then we later fetch the scores to display on the site. The database is under the file db-interface.py.
+
+The second one is the supabase database that was created. This second database is connected to the table on the home page. This table indicates which search terms have been searched the most. 
 
 There are also two front-end libraries libraries that are being used. The first one is a picture slider from a simple slider. This library is used on the games page to display the games available on the site. The documentation for it is below. 
 
