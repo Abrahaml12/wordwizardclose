@@ -314,7 +314,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simpleslider.min.js"></script>
     <script>
         
-async function displayWord(getWord, searchItem) {
+        async function displayWord(getWord, searchItem) {
 
           // word header
           const wordPart = document.getElementById("wordTitle");
@@ -406,7 +406,7 @@ async function displayWord(getWord, searchItem) {
           
           randomWord();
 
-          displayWord(getWord, searchItem);
+          displayWord(localStorage.getItem("wordData"), localStorage.getItem('searchItem'));
         }
 
         function redirect(address){
