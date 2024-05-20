@@ -458,7 +458,7 @@ async function displayWord(getWord, searchItem) {
                     localStorage.setItem('searchItem', data[i].toString());
                     break;
                 }
-                
+                displayWord(getWord, data[i].toString());
             }
         }
         window.addEventListener('load', randomWord);
