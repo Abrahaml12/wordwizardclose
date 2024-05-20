@@ -403,7 +403,8 @@
           randomWord();
           let getWord = JSON.parse(localStorage.getItem('randomWordData'));
           let searchItem = localStorage.getItem('randomSearchItem');
-          console.log(getWord);
+          console.log("getWord", getWord);
+          console.log("searchItem", searchItem);
 
           displayWord(getWord, searchItem);
         }
