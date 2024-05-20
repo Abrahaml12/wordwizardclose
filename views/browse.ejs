@@ -413,8 +413,10 @@
                     // Save data to cache 
                     localStorage.setItem('wordData', JSON.stringify(getWord));
                     localStorage.setItem('searchItem', data[i].toString());
+                    displayWord(getWord, data[i].stringify)
                     break;
                 }
+                
             }
         }
         window.addEventListener('load', randomWord);
