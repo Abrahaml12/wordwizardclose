@@ -275,16 +275,12 @@
         </div>
 
         <!--Featured Game-->
-        <div>
-            <!--<h2>Featured Games</h2>-->
-            <div id="gamewidget" data-simple-slider>
+        <div id="gamewidget" data-simple-slider>
                 <!-- <div id="gameSlider" > -->
                     <a href="/games"><img src="\images\tr_V2.png"/></a>
                     <a href="/games"><img src="\images\wc_V2.png"/></a>
                 <!-- </div> -->
-            </div>
         </div>
-        
         
     </div>
     <h3>Top Searched Words</h3>  
@@ -462,7 +458,7 @@ async function displayWord(getWord, searchItem) {
                     localStorage.setItem('searchItem', data[i].toString());
                     break;
                 }
-                displayWord(getWord, data[i].toString());
+                
             }
         }
         window.addEventListener('load', randomWord);
