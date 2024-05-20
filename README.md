@@ -50,7 +50,13 @@ Random Word API endpoint: https://random-word-api.herokuapp.com/word?lang=en&num
 
 There were two backend databases that were created. The first Backend database that is being fetched is a Python database that is in the repository. This database is used to collect the scores of the games that have been played. We post the scores from the site to the database, and then we later fetch the scores to display on the site. The database is under the file db-interface.py.
 
-The second one is the supabase database that was created. This second database is connected to the table on the home page. This table indicates which search terms have been searched the most. 
+The second one is the supabase database that was created. This second database is connected to the table on the home page. This table indicates which search terms have been searched the most. The endpoints from this database are set up in the index.js file with the link being set up as follows:
+
+const supabaseUrl = 'https://mdazieiqdwqszmkyhbdz.supabase.co'
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1kYXppZWlxZHdxc3pta3loYmR6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTYwOTcxMDQsImV4cCI6MjAzMTY3MzEwNH0.EDfQSulRMz_deJiBk8yyEfL0Hy4U5Bb4nBGYVeyUQpA'
+const supabase = supabaseClient.createClient(supabaseUrl, supabaseKey)
+
+This is followed by a few get methods that interact with the database, performing tasks such as inputting, updating, and fetching. 
 
 There are also two front-end libraries libraries that are being used. The first one is a picture slider from a simple slider. This library is used on the games page to display the games available on the site. The documentation for it is below. 
 
