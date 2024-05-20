@@ -251,35 +251,32 @@
         <div id="wordwidget">
             <div id="wordbox">
                 <div id="header">
-                <h1 id="wordTitle"></h1>
-                <!--Note: parts of speech VS part of speech-->
-                <p id="partsofspeech"></p>
+                    <h1 id="wordTitle"></h1>
+                    <!--Note: parts of speech VS part of speech-->
+                    <p id="partsofspeech"></p>
                 </div>
                 <hr>
                 <div id = "definitions">
                     <div id="define">
-                    <h3 id="partofspeech"></h3>
-                    <p id="definition"></p>
-                    <p id="example"></p>
+                        <h3 id="partofspeech"></h3>
+                        <p id="definition"></p>
+                        <p id="example"></p>
+                    </div>
+            
+                    <div id="define">
+                        <h3 id="partofspeech"></h3>
+                        <p id="definition"></p>
+                    </div>
                 </div>
-        
-                <div id="define">
-                    <h3 id="partofspeech"></h3>
-                    <p id="definition"></p>
-                </div>
-                </div>
-                
-        
-        
             </div>
         </div>
 
         <!--Featured Game-->
         <div id="gamewidget" data-simple-slider>
-                <!-- <div id="gameSlider" > -->
-                    <a href="/games"><img src="\images\tr_V2.png"/></a>
-                    <a href="/games"><img src="\images\wc_V2.png"/></a>
-                <!-- </div> -->
+            <!-- <div id="gameSlider" > -->
+            <a href="/games"><img src="\images\tr_V2.png"/></a>
+            <a href="/games"><img src="\images\wc_V2.png"/></a>
+            <!-- </div> -->
         </div>
         
     </div>
@@ -458,7 +455,6 @@ async function displayWord(getWord, searchItem) {
                     localStorage.setItem('searchItem', data[i].toString());
                     break;
                 }
-                displayWord(getWord, data[i].toString());
             }
         }
         window.addEventListener('load', randomWord);
