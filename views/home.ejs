@@ -252,21 +252,21 @@
         <h3>Word of the Day:</h3>
         <div id="wordbox">
             <div id="header">
-            <h2 id="wordoftheday">Stifled</h2>
+            <h2 id="wordoftheday"></h2>
             <!--Note: parts of speech VS part of speech-->
-            <p id="partsofspeech">(Adj., Verb)</p>
+            <p id="partsofspeech"></p>
             </div>
             <hr>
 
             <div id="define">
-                <h3 id="partofspeech"> Adjective</h3>
-                <p id="definition">That has been interrupted, suppressed etc.</p>
-                <p id="example">The stifled attempt at reform led to further resentment.</p>
+                <h3 id="partofspeech"></h3>
+                <p id="definition"></p>
+                <p id="example"></p>
             </div>
 
             <div id="define">
-                <h3 id="partofspeech">Verb</h3>
-                <p id="definition">That has been interrupted, suppressed etc.</p>
+                <h3 id="partofspeech"></h3>
+                <p id="definition"></p>
 
             </div>
 
@@ -347,6 +347,25 @@
             }
         }
 
+        async function randomWord() {
+            const response = await fetch(api_url);
+            var data = await response.json();
+            // word = data.toString();
+            console.log(data);
+            
+            for(let i=0; i < 10; i++) {
+                const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${data[i].toString()}`)
+                getWord = await res.json();
+                console.log("WORDS", getWord);
+                if(getWord["title"] != "No Definitions Found") {
+                    // Save data to cache 
+                    localStorage.setItem('wordData', JSON.stringify(getWord));
+                    localStorage.setItem('searchItem', data[i].toString());
+                    break;
+                }
+            }
+        }
+        window.addEventListener('load', randomWord);
 
         async function searchWord(){
             let getWord="";
