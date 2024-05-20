@@ -248,28 +248,31 @@
     <div id="content">
 
         <!--Word of the Day-->
-        <div id="wordwidget">
-            <div id="wordbox">
-                <div id="header">
-                    <h1 id="wordTitle"></h1>
-                    <!--Note: parts of speech VS part of speech-->
-                    <p id="partsofspeech"></p>
-                </div>
-                <hr>
-                <div id = "definitions">
-                    <div id="define">
-                        <h3 id="partofspeech"></h3>
-                        <p id="definition"></p>
-                        <p id="example"></p>
-                    </div>
-            
-                    <div id="define">
-                        <h3 id="partofspeech"></h3>
-                        <p id="definition"></p>
-                    </div>
-                </div>
+    <div id="wordwidget">
+        <h3>Word of the Day:</h3>
+        <div id="wordbox">
+            <div id="header">
+            <h2 id="wordoftheday">Stifled</h2>
+            <!--Note: parts of speech VS part of speech-->
+            <p id="partsofspeech">(Adj., Verb)</p>
             </div>
+            <hr>
+
+            <div id="define">
+                <h3 id="partofspeech"> Adjective</h3>
+                <p id="definition">That has been interrupted, suppressed etc.</p>
+                <p id="example">The stifled attempt at reform led to further resentment.</p>
+            </div>
+
+            <div id="define">
+                <h3 id="partofspeech">Verb</h3>
+                <p id="definition">That has been interrupted, suppressed etc.</p>
+
+            </div>
+
+
         </div>
+    </div>
 
         <!--Featured Game-->
         <div id="gamewidget" data-simple-slider>
@@ -314,101 +317,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/simple-slider/1.0.0/simpleslider.min.js"></script>
     <script>
         
-        async function displayWord(getWord, searchItem) {
-
-          // word header
-          const wordPart = document.getElementById("wordTitle");
-          // part of speech header
-          const posPart = document.getElementById("partsofspeech");
-          // definition
-          const definitionPart = document.getElementById("definitions");
-          definitionPart.innerHTML = "";
-
-          let PoSarr = [];
-
-          const plaintext = searchItem;
-          console.log(plaintext);
-          const formattedText = plaintext.charAt(0).toUpperCase() + plaintext.slice(1);
-
-          wordPart.innerHTML = formattedText;
-
-          if (getWord.title=="No Definitions Found"){
-            console.log('No word data found');
-          
-            document.getElementById('partsofspeech').innerHTML="";
-            definitionPart.innerHTML = "No definition found. Try another search!";
-            
-            return false;
-          }
-            
-            console.log(plaintext);
-            let insertWord = '/insertWord/' + plaintext;
-            
-            let queriedWord = '/WordSearch/' + plaintext;
-
-            //let updateWord = '/updateWord/' + word + '/3';
-            
-            //await fetch(updateWord)
-            //await fetch(insertWord);
-
-            const wordsDbFind = await fetch(queriedWord).then((res) => res.json());
-            
-            if(wordsDbFind.length == 0){
-                await fetch(insertWord);
-                console.log('2');
-            }
-            else{
-                let newNumber = wordsDbFind[0].Count +1;
-                
-                let updateWord = '/updateWord/' + plaintext + '/' + newNumber;
-                await fetch(updateWord);
-                console.log("3")
-            }
-
-          for (let i = 0; i < getWord[0].meanings.length; i++) {
-            PoSarr.push(getWord[0].meanings[i].partOfSpeech + "");
-
-            const PoS = document.createElement("h3");
-            const PoSnode = document.createTextNode(getWord[0].meanings[i].partOfSpeech);
-            const formattedPOS = document.createTextNode(PoSnode.textContent.charAt(0).toUpperCase() + PoSnode.textContent.slice(1));
-            PoS.appendChild(formattedPOS);
-
-            const def = document.createElement("p");
-            const defNode = document.createTextNode(getWord[0].meanings[i].definitions[0].definition);
-            def.appendChild(defNode);
-
-            definitionPart.appendChild(PoS);
-            definitionPart.appendChild(def);
-
-            if ((getWord[0].meanings[i].definitions[0].example + "") !== "undefined") {
-              const ex = document.createElement('h3');
-              ex.innerText = "Example: ";
-              ex.style.fontStyle = 'italic';
-
-              
-              const sentenceUse = document.createElement("p");
-              const sentenceUseNode = document.createTextNode(getWord[0].meanings[i].definitions[0].example);
-
-              sentenceUse.append(ex);
-              sentenceUse.appendChild(sentenceUseNode);
-              definitionPart.appendChild(sentenceUse);
-            }
-          }
-          posPart.innerHTML = "(" + PoSarr + ")";
-
-          localStorage.setItem('wordData', "");
-          localStorage.setItem('searchItem', "");
-        }
-        window.onload = async function() {
-          randomWord();
-          let getWord = JSON.parse(localStorage.getItem('randomWordData'));
-          let searchItem = localStorage.getItem('randomSearchItem');
-          console.log("getWord", getWord);
-          console.log("searchItem", searchItem);
-
-          displayWord(getWord, searchItem);
-        }
-
         function redirect(address){
             let buffer = "http://localhost:3000/"+address
             //alert(buffer)
@@ -429,8 +337,8 @@
                 console.log("WORDS", getWord);
                 if(getWord["title"] != "No Definitions Found") {
                     // Save data to cache 
-                    localStorage.setItem('randomWordData', JSON.stringify(getWord));
-                    localStorage.setItem('randomSearchItem', data[i].toString());
+                    localStorage.setItem('wordData', JSON.stringify(getWord));
+                    localStorage.setItem('searchItem', data[i].toString());
 
                     // Change location to browse
                     window.location.href = '/browse';
@@ -439,26 +347,6 @@
             }
         }
 
-        async function randomWord() {
-            const response = await fetch(api_url);
-            var data = await response.json();
-            // word = data.toString();
-            console.log(data);
-            
-            for(let i=0; i < 10; i++) {
-                const res = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${data[i].toString()}`)
-                getWord = await res.json();
-                console.log("WORDS", getWord);
-                if(getWord["title"] != "No Definitions Found") {
-                    // Save data to cache 
-                    localStorage.setItem('wordData', JSON.stringify(getWord));
-                    localStorage.setItem('searchItem', data[i].toString());
-                    break;
-                }
-                
-            }
-        }
-        window.addEventListener('load', randomWord);
 
         async function searchWord(){
             let getWord="";
