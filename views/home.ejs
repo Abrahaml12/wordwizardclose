@@ -400,13 +400,12 @@
           localStorage.setItem('searchItem', "");
         }
         window.onload = async function() {
-          let getWord = JSON.parse(localStorage.getItem('wordData'));
-          let searchItem = localStorage.getItem('searchItem');
-          console.log(getWord);
-          
           randomWord();
+          let getWord = JSON.parse(localStorage.getItem('randomWordData'));
+          let searchItem = localStorage.getItem('randomSearchItem');
+          console.log(getWord);
 
-          displayWord(localStorage.getItem("wordData"), localStorage.getItem("searchItem"));
+          displayWord(getWord, searchItem);
         }
 
         function redirect(address){
@@ -429,8 +428,8 @@
                 console.log("WORDS", getWord);
                 if(getWord["title"] != "No Definitions Found") {
                     // Save data to cache 
-                    localStorage.setItem('wordData', JSON.stringify(getWord));
-                    localStorage.setItem('searchItem', data[i].toString());
+                    localStorage.setItem('randomWordData', JSON.stringify(getWord));
+                    localStorage.setItem('randomSearchItem', data[i].toString());
 
                     // Change location to browse
                     window.location.href = '/browse';
