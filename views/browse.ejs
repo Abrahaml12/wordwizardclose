@@ -311,8 +311,9 @@
             //await fetch(updateWord)
             //await fetch(insertWord);
 
-            const wordsDbFind = await fetch(queriedWord).then((res) => res.json());
+            
             try{
+                const wordsDbFind = await fetch(queriedWord).then((res) => res.json());
                 if(wordsDbFind.length == 0){
                     await fetch(insertWord);
                     console.log('2');
