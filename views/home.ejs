@@ -417,8 +417,10 @@
                 await fetch(updateWord);
                 console.log("3")
             }*/
-            
+
             const wordsDbStats = await fetch('/topWords').then((res) => res.json());
+            
+            
 
             for(let i=0; i< wordsDbStats.length ; i++){
                 tr = document.createElement("tr");
@@ -432,7 +434,8 @@
                 tr.appendChild(wordCount);
                 console.log(wordsDbStats[i]);
                 document.getElementById("topWords").appendChild(tr);
-           
+
+            }
 
             
 
@@ -443,6 +446,9 @@
         window.onload = topWordTable();
 
     </script>
+    
+</body>
+</html>
     
 </body>
 </html>
